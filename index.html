@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0f1a" />
+<title>Study AI Nepal — Learn Smarter with AI</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{
+  --bg:#070912;--bg-2:#0d1122;--surface:rgba(255,255,255,0.04);--surface-2:rgba(255,255,255,0.07);
+  --border:rgba(255,255,255,0.09);--text:#eef1fa;--text-dim:#a6adc4;--text-muted:#6b7390;
+  --primary:#7c5cff;--primary-2:#22d3ee;--accent:#f472b6;--success:#34d399;--warning:#fbbf24;--danger:#f87171;
+  --grad:linear-gradient(135deg,#7c5cff 0%,#22d3ee 100%);
+  --grad-2:linear-gradient(135deg,#f472b6 0%,#7c5cff 100%);
+  --grad-3:linear-gradient(135deg,#22d3ee 0%,#34d399 100%);
+  --grad-4:linear-gradient(135deg,#fbbf24 0%,#f472b6 100%);
+  --shadow-lg:0 20px 60px rgba(0,0,0,0.5);--shadow-md:0 10px 30px rgba(0,0,0,0.3);
+  --radius:16px;--radius-lg:22px;--radius-xl:28px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --nav-h:64px;--bnav-h:72px;
+}
+[data-theme="light"]{
+  --bg:#f4f6fb;--bg-2:#ffffff;--surface:rgba(255,255,255,0.75);--surface-2:rgba(255,255,255,0.95);
+  --border:rgba(10,15,35,0.08);--text:#0b1024;--text-dim:#4a5168;--text-muted:#8892a8;
+  --shadow-lg:0 20px 60px rgba(30,40,80,0.15);--shadow-md:0 10px 30px rgba(30,40,80,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden;scroll-behavior:smooth}
+body{
+  font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;
+  line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(600px circle at 15% 10%,rgba(124,92,255,.18),transparent 50%),
+    radial-gradient(600px circle at 85% 85%,rgba(34,211,238,.14),transparent 50%),
+    radial-gradient(500px circle at 50% 50%,rgba(244,114,182,.08),transparent 60%);
+}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+h1,h2,h3,h4{font-weight:700;letter-spacing:-.02em;line-height:1.2;color:var(--text)}
+h1{font-size:clamp(2rem,5vw,3.2rem)}
+h2{font-size:clamp(1.5rem,3.5vw,2.2rem)}
+h3{font-size:clamp(1.1rem,2.5vw,1.35rem)}
+p{color:var(--text-dim)}
+button,input,textarea,select{font-family:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none}
+svg{display:block;max-width:100%}
+
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px}
+.page{display:none;padding:calc(var(--nav-h) + 20px) 0 calc(var(--bnav-h) + 30px);animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.topnav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:100;
+  background:var(--surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.topnav-inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1200px;margin:0 auto;padding:0 20px;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;letter-spacing:-.01em}
+.brand-logo{
+  width:36px;height:36px;border-radius:10px;background:var(--grad);
+  display:grid;place-items:center;color:#fff;box-shadow:0 6px 20px rgba(124,92,255,.4);
+}
+.brand-text span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-links{display:none;gap:4px}
+.nav-links button{
+  padding:8px 14px;border-radius:10px;font-size:.9rem;font-weight:500;color:var(--text-dim);transition:all .2s;
+}
+.nav-links button:hover{background:var(--surface-2);color:var(--text)}
+.nav-links button.active{background:var(--surface-2);color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{
+  width:40px;height:40px;border-radius:12px;background:var(--surface-2);
+  display:grid;place-items:center;transition:all .2s;color:var(--text);
+}
+.icon-btn:hover{background:var(--border)}
+.icon-btn svg{width:20px;height:20px}
+
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;height:var(--bnav-h);z-index:100;
+  background:var(--surface);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid var(--border);padding:0 8px;padding-bottom:env(safe-area-inset-bottom);
+}
+.bnav-inner{display:flex;justify-content:space-around;align-items:center;height:100%;max-width:500px;margin:0 auto}
+.bnav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 10px;border-radius:12px;
+  color:var(--text-muted);font-size:.7rem;font-weight:500;transition:all .25s;min-width:56px;position:relative;
+}
+.bnav-btn svg{width:22px;height:22px;transition:transform .25s}
+.bnav-btn.active{color:var(--primary)}
+.bnav-btn.active svg{transform:translateY(-2px)}
+.bnav-btn.active::before{
+  content:'';position:absolute;top:-1px;width:20px;height:3px;border-radius:0 0 4px 4px;background:var(--grad);
+}
+
+.glass-strong{background:var(--surface-2);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:var(--radius-lg)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;
+  border-radius:12px;font-weight:600;font-size:.95rem;transition:all .25s;white-space:nowrap;min-height:44px;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(124,92,255,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(124,92,255,.5)}
+.btn-secondary{background:var(--surface-2);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:var(--border)}
+.btn-danger{background:rgba(248,113,113,.15);color:var(--danger);border:1px solid rgba(248,113,113,.3)}
+.btn-sm{padding:8px 14px;font-size:.85rem;min-height:36px;border-radius:10px}
+.btn-lg{padding:16px 28px;font-size:1rem;min-height:52px}
+.btn svg{width:18px;height:18px}
+.btn:active{transform:scale(.97)}
+
+.input,.textarea,.select{
+  width:100%;padding:12px 16px;border-radius:12px;background:var(--surface-2);
+  border:1px solid var(--border);color:var(--text);font-size:.95rem;transition:all .2s;min-height:44px;
+}
+.input:focus,.textarea:focus,.select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(124,92,255,.15)}
+.textarea{resize:vertical;min-height:100px}
+.label{display:block;font-size:.85rem;font-weight:600;color:var(--text-dim);margin-bottom:8px}
+.form-group{margin-bottom:16px}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border)}
+.badge-primary{background:rgba(124,92,255,.15);color:var(--primary);border-color:rgba(124,92,255,.3)}
+.badge-success{background:rgba(52,211,153,.15);color:var(--success);border-color:rgba(52,211,153,.3)}
+.badge-accent{background:rgba(244,114,182,.15);color:var(--accent);border-color:rgba(244,114,182,.3)}
+
+.card{padding:20px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);transition:all .3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.3);box-shadow:var(--shadow-md)}
+.card-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;background:var(--grad);color:#fff}
+.card-icon svg{width:24px;height:24px}
+.card-icon.g2{background:var(--grad-2)}
+.card-icon.g3{background:var(--grad-3)}
+.card-icon.g4{background:var(--grad-4)}
+
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.section-title h2{font-size:1.4rem}
+
+.hero{padding:20px 0 40px;text-align:center}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;
+  background:var(--surface-2);border:1px solid var(--border);font-size:.8rem;color:var(--text-dim);margin-bottom:20px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 10px var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.hero h1{margin-bottom:16px}
+.hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:clamp(1rem,2vw,1.15rem);max-width:600px;margin:0 auto 28px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:1.6rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-stat .lbl{font-size:.8rem;color:var(--text-muted)}
+
+.features-section{padding:30px 0}
+.feature-card{padding:24px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);transition:all .3s;cursor:pointer}
+.feature-card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.4)}
+.feature-card h3{margin-bottom:8px}
+.feature-card p{font-size:.9rem}
+
+.cta-section{
+  margin:40px 0;padding:40px 24px;border-radius:var(--radius-xl);
+  background:var(--grad);color:#fff;text-align:center;position:relative;overflow:hidden;
+}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.2),transparent 50%)}
+.cta-section h2{color:#fff;margin-bottom:10px;position:relative}
+.cta-section p{color:rgba(255,255,255,.9);margin-bottom:20px;position:relative}
+.cta-section .btn{background:#fff;color:var(--primary);position:relative}
+
+.chat-wrap{display:flex;flex-direction:column;height:calc(100vh - var(--nav-h) - var(--bnav-h) - 40px);min-height:400px;max-height:800px}
+.chat-header{padding:16px;border-radius:var(--radius-lg) var(--radius-lg) 0 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.chat-avatar{width:40px;height:40px;border-radius:12px;background:var(--grad);display:grid;place-items:center;color:#fff;flex-shrink:0}
+.chat-avatar svg{width:20px;height:20px}
+.chat-info h3{font-size:1rem;margin-bottom:2px}
+.chat-info p{font-size:.75rem;color:var(--success);display:flex;align-items:center;gap:4px}
+.chat-info p::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)}
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.msg{display:flex;gap:10px;max-width:85%;animation:msgIn .3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-avatar{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;flex-shrink:0;color:#fff;font-size:.85rem;font-weight:700}
+.msg.ai .msg-avatar{background:var(--grad)}
+.msg.user .msg-avatar{background:var(--grad-2)}
+.msg-avatar svg{width:16px;height:16px}
+.msg-bubble{padding:12px 16px;border-radius:16px;font-size:.95rem;line-height:1.55;word-wrap:break-word}
+.msg.ai .msg-bubble{background:var(--surface-2);border:1px solid var(--border);border-top-left-radius:4px}
+.msg.user .msg-bubble{background:var(--grad);color:#fff;border-top-right-radius:4px}
+.msg-bubble strong{color:inherit;font-weight:700}
+.msg-bubble ul{margin:8px 0 8px 20px}
+.msg-bubble code{background:rgba(0,0,0,.2);padding:2px 6px;border-radius:4px;font-size:.85em}
+.msg-time{font-size:.7rem;color:var(--text-muted);margin-top:4px;padding:0 4px}
+.typing{display:flex;gap:4px;padding:14px 16px}
+.typing span{width:8px;height:8px;border-radius:50%;background:var(--text-muted);animation:typing 1.4s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-8px);opacity:1}}
+.chat-input-wrap{padding:14px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:flex-end}
+.chat-input{flex:1;padding:12px 16px;border-radius:22px;background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:.95rem;resize:none;max-height:120px;min-height:44px;line-height:1.4}
+.chat-input:focus{outline:none;border-color:var(--primary)}
+.send-btn{width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;flex-shrink:0;transition:all .2s;box-shadow:0 4px 14px rgba(124,92,255,.4)}
+.send-btn:hover{transform:scale(1.05)}
+.send-btn svg{width:20px;height:20px}
+.chat-suggestions{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 10px}
+.suggestion{padding:8px 14px;border-radius:20px;background:var(--surface-2);border:1px solid var(--border);font-size:.8rem;color:var(--text-dim);transition:all .2s}
+.suggestion:hover{background:var(--border);color:var(--text)}
+
+.tool-card{padding:24px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all .3s}
+.tool-card:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.4);box-shadow:var(--shadow-md)}
+.tool-icon{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;color:#fff}
+.tool-icon svg{width:26px;height:26px}
+.tool-card h3{margin-bottom:6px;font-size:1.05rem}
+.tool-card p{font-size:.85rem;margin-bottom:12px}
+.tool-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.7rem;font-weight:600;background:rgba(124,92,255,.15);color:var(--primary)}
+
+.profile-header{padding:28px;border-radius:var(--radius-xl);background:var(--grad);color:#fff;text-align:center;position:relative;overflow:hidden;margin-bottom:20px}
+.profile-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.2),transparent 50%)}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;margin:0 auto 14px;font-size:2rem;font-weight:700;border:3px solid rgba(255,255,255,.3);position:relative}
+.profile-header h2{color:#fff;margin-bottom:4px;position:relative}
+.profile-header p{color:rgba(255,255,255,.85);font-size:.9rem;position:relative}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;position:relative}
+.profile-stat{padding:12px;border-radius:12px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px)}
+.profile-stat .n{font-size:1.3rem;font-weight:800}
+.profile-stat .l{font-size:.7rem;opacity:.85}
+
+.stat-card{padding:18px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--border)}
+.stat-card .lbl{font-size:.8rem;color:var(--text-muted);margin-bottom:6px}
+.stat-card .val{font-size:1.6rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.progress-bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;background:var(--grad);border-radius:4px;transition:width .6s ease}
+
+.history-item{padding:14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.history-item .title{font-weight:600;font-size:.9rem;margin-bottom:2px}
+.history-item .meta{font-size:.75rem;color:var(--text-muted)}
+
+.about-hero{text-align:center;padding:30px 20px;border-radius:var(--radius-xl);background:var(--grad);color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.about-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.2),transparent 50%)}
+.about-hero h1{color:#fff;margin-bottom:10px;position:relative}
+.about-hero p{color:rgba(255,255,255,.9);position:relative;max-width:600px;margin:0 auto}
+.creator-card{padding:24px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);text-align:center;margin-bottom:20px}
+.creator-avatar{width:70px;height:70px;border-radius:50%;background:var(--grad-2);display:grid;place-items:center;margin:0 auto 14px;color:#fff;font-size:1.6rem;font-weight:800}
+.creator-card h3{margin-bottom:4px}
+.creator-card .role{color:var(--primary);font-size:.85rem;font-weight:600;margin-bottom:10px}
+
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:1000;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-overlay.active{display:flex;animation:fadeIn .2s}
+.modal{
+  width:100%;max-width:420px;max-height:90vh;overflow-y:auto;
+  background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius-xl);
+  padding:28px;position:relative;animation:modalIn .3s ease;
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;background:var(--surface-2);display:grid;place-items:center;color:var(--text-dim)}
+.modal-close:hover{background:var(--border);color:var(--text)}
+.modal h2{margin-bottom:6px;text-align:center}
+.modal .sub{text-align:center;margin-bottom:24px;font-size:.9rem}
+.auth-tabs{display:flex;gap:4px;padding:4px;background:var(--surface-2);border-radius:12px;margin-bottom:20px}
+.auth-tab{flex:1;padding:10px;border-radius:8px;font-weight:600;font-size:.9rem;color:var(--text-dim);transition:all .2s}
+.auth-tab.active{background:var(--grad);color:#fff}
+
+.tool-view{display:none;animation:fadeIn .3s}
+.tool-view.active{display:block}
+.tool-view-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.back-btn{width:40px;height:40px;border-radius:12px;background:var(--surface-2);display:grid;place-items:center;color:var(--text)}
+.back-btn:hover{background:var(--border)}
+.back-btn svg{width:20px;height:20px}
+
+.calc-display{padding:24px;border-radius:var(--radius-lg);background:var(--bg-2);border:1px solid var(--border);margin-bottom:16px;text-align:right;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end}
+.calc-expr{font-size:.9rem;color:var(--text-muted);min-height:20px;word-break:break-all}
+.calc-result{font-size:2.2rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;word-break:break-all}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.calc-btn{padding:18px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border);font-size:1.1rem;font-weight:600;color:var(--text);transition:all .15s;min-height:54px}
+.calc-btn:hover{background:var(--border)}
+.calc-btn:active{transform:scale(.95)}
+.calc-btn.op{background:rgba(124,92,255,.15);color:var(--primary);border-color:rgba(124,92,255,.3)}
+.calc-btn.eq{background:var(--grad);color:#fff;grid-column:span 2}
+.calc-btn.fn{background:rgba(34,211,238,.12);color:var(--primary-2);border-color:rgba(34,211,238,.3)}
+.calc-btn.clear{background:rgba(248,113,113,.12);color:var(--danger);border-color:rgba(248,113,113,.3)}
+
+.tt-day{margin-bottom:16px;padding:16px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border)}
+.tt-day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.tt-day-header h4{font-size:.95rem}
+.tt-slots{display:flex;flex-direction:column;gap:8px}
+.tt-slot{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border)}
+.tt-time{font-size:.8rem;color:var(--primary-2);font-weight:600;min-width:90px}
+.tt-subject{flex:1;font-size:.9rem}
+.tt-del{width:28px;height:28px;border-radius:8px;background:rgba(248,113,113,.12);color:var(--danger);display:grid;place-items:center;flex-shrink:0}
+.tt-add{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.tt-add input{flex:1;min-width:100px}
+
+.goal-item{padding:16px;border-radius:var(--radius);background:var(--surface-2);border:1px solid var(--border);margin-bottom:12px}
+.goal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:10px}
+.goal-title{font-weight:600;font-size:.95rem}
+.goal-meta{font-size:.75rem;color:var(--text-muted);margin-top:2px}
+.goal-actions{display:flex;gap:6px}
+.goal-actions button{width:28px;height:28px;border-radius:8px;background:var(--surface);display:grid;place-items:center;color:var(--text-dim)}
+.goal-actions button:hover{background:var(--border);color:var(--text)}
+.goal-progress-text{display:flex;justify-content:space-between;font-size:.8rem;color:var(--text-dim);margin-top:6px}
+
+.reminder-item{padding:14px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.reminder-info{flex:1}
+.reminder-title{font-weight:600;font-size:.9rem;margin-bottom:2px}
+.reminder-time{font-size:.8rem;color:var(--primary-2);font-weight:500}
+.reminder-del{width:32px;height:32px;border-radius:10px;background:rgba(248,113,113,.12);color:var(--danger);display:grid;place-items:center;flex-shrink:0}
+
+.quiz-setup,.quiz-active,.quiz-result{padding:24px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border)}
+.quiz-q-text{font-size:1.05rem;font-weight:600;margin-bottom:16px}
+.quiz-opts{display:flex;flex-direction:column;gap:10px}
+.quiz-opt{padding:14px 16px;border-radius:12px;background:var(--surface-2);border:2px solid var(--border);text-align:left;font-size:.95rem;transition:all .2s;display:flex;align-items:center;gap:10px}
+.quiz-opt:hover{border-color:var(--primary)}
+.quiz-opt.correct{border-color:var(--success);background:rgba(52,211,153,.1)}
+.quiz-opt.wrong{border-color:var(--danger);background:rgba(248,113,113,.1)}
+.quiz-opt-letter{width:28px;height:28px;border-radius:8px;background:var(--surface);display:grid;place-items:center;font-weight:700;font-size:.85rem;flex-shrink:0}
+.quiz-progress{height:6px;border-radius:3px;background:var(--surface-2);margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:var(--grad);transition:width .3s}
+
+.pdf-drop{padding:40px 20px;border-radius:var(--radius-lg);background:var(--surface);border:2px dashed var(--border);text-align:center;cursor:pointer;transition:all .2s}
+.pdf-drop:hover,.pdf-drop.drag{border-color:var(--primary);background:rgba(124,92,255,.05)}
+.pdf-drop svg{width:48px;height:48px;margin:0 auto 12px;color:var(--primary)}
+.pdf-result{padding:20px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);margin-top:16px}
+.pdf-result h4{margin-bottom:12px}
+.pdf-result ul{margin:10px 0 10px 20px;color:var(--text-dim)}
+.pdf-result li{margin-bottom:6px}
+
+.notes-output,.hw-output{padding:20px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);margin-top:16px;line-height:1.7}
+.notes-output h3{margin:16px 0 8px;font-size:1.1rem}
+.notes-output h3:first-child{margin-top:0}
+.notes-output ul{margin:8px 0 8px 20px}
+.notes-output li{margin-bottom:4px;color:var(--text-dim)}
+.hw-step{padding:14px;border-radius:12px;background:var(--surface-2);border-left:3px solid var(--primary);margin-bottom:10px}
+.hw-step-num{font-size:.75rem;color:var(--primary);font-weight:700;margin-bottom:4px}
+
+.toast{
+  position:fixed;bottom:calc(var(--bnav-h) + 20px);left:50%;transform:translateX(-50%) translateY(100px);
+  padding:12px 20px;border-radius:12px;background:var(--bg-2);border:1px solid var(--border);
+  box-shadow:var(--shadow-lg);z-index:2000;transition:transform .3s;font-size:.9rem;font-weight:500;
+  display:flex;align-items:center;gap:8px;max-width:90%;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(52,211,153,.4)}
+.toast.error{border-color:rgba(248,113,113,.4)}
+
+.empty{text-align:center;padding:40px 20px;color:var(--text-muted)}
+.empty svg{width:48px;height:48px;margin:0 auto 12px;opacity:.5}
+
+.glass{padding:20px;border-radius:var(--radius-lg);background:var(--surface);border:1px solid var(--border);margin-bottom:16px}
+
+@media (min-width:768px){
+  .nav-links{display:flex}
+  .chat-wrap{max-height:700px}
+}
+@media (min-width:1024px){
+  .bnav{display:none}
+  .page{padding-bottom:40px}
+}
+@media (max-width:767px){
+  .container{padding:0 16px}
+  .card,.tool-card,.feature-card{padding:18px}
+  .modal{padding:22px}
+}
+
+.hidden{display:none !important}
+.text-center{text-align:center}
+.mt-3{margin-top:12px}.mt-4{margin-top:16px}.mt-6{margin-top:24px}
+.mb-3{margin-bottom:12px}.mb-4{margin-bottom:16px}
+.flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-2{gap:8px}.gap-3{gap:12px}
+.w-full{width:100%}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <button class="brand" id="brandBtn">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="brand-text">Study <span>AI Nepal</span></div>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <button data-nav="home">Home</button>
+      <button data-nav="chat">AI Chat</button>
+      <button data-nav="tools">Tools</button>
+      <button data-nav="profile">Profile</button>
+      <button data-nav="about">About</button>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <button class="btn btn-primary btn-sm" id="authBtn">Sign In</button>
+    </div>
+  </div>
+</nav>
+
+<main id="page-home" class="page active">
+  <div class="container">
+    <section class="hero">
+      <div class="hero-badge"><span class="dot"></span>AI-Powered Learning • Made in Nepal 🇳🇵</div>
+      <h1>Learn Smarter with <span class="grad">AI</span></h1>
+      <p>Your personal AI study assistant for notes, homework, PDFs, quizzes, and exam prep — built specially for Nepali students.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" id="startLearnBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Start Learning
+        </button>
+        <button class="btn btn-secondary btn-lg" id="exploreToolsBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Explore Tools
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">10K+</div><div class="lbl">Students</div></div>
+        <div class="hero-stat"><div class="num">50K+</div><div class="lbl">Questions</div></div>
+        <div class="hero-stat"><div class="num">4.9★</div><div class="lbl">Rating</div></div>
+        <div class="hero-stat"><div class="num">24/7</div><div class="lbl">Available</div></div>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <div class="section-title">
+        <h2>Powerful AI Tools</h2>
+        <span class="badge badge-primary">Everything you need</span>
+      </div>
+      <div class="grid grid-3" id="featureGrid"></div>
+    </section>
+
+    <section class="cta-section">
+      <h2>Ready to ace your exams?</h2>
+      <p>Join thousands of Nepali students already learning smarter with AI.</p>
+      <button class="btn btn-lg" id="getStartedBtn">Get Started Free →</button>
+    </section>
+  </div>
+</main>
+
+<main id="page-chat" class="page">
+  <div class="container">
+    <div class="chat-wrap glass-strong">
+      <div class="chat-header">
+        <div class="chat-avatar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2M20 14h2M15 13v2M9 13v2"/></svg>
+        </div>
+        <div class="chat-info">
+          <h3>Study AI Assistant</h3>
+          <p>Online • Nepali & English</p>
+        </div>
+        <button class="icon-btn" id="clearChatBtn" title="Clear chat" style="margin-left:auto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-suggestions" id="chatSuggestions">
+        <button class="suggestion" data-q="Explain photosynthesis in simple words">🌱 Photosynthesis</button>
+        <button class="suggestion" data-q="Solve: 2x + 5 = 15">🧮 Math problem</button>
+        <button class="suggestion" data-q="नेपालको इतिहास बारे बताउनुहोस्">🇳🇵 नेपालको इतिहास</button>
+        <button class="suggestion" data-q="Write an essay on climate change">📝 Essay help</button>
+      </div>
+      <div class="chat-input-wrap">
+        <textarea class="chat-input" id="chatInput" placeholder="Ask anything... (Nepali or English)" rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<main id="page-tools" class="page">
+  <div class="container">
+    <div id="toolsGrid">
+      <div class="section-title">
+        <h2>AI Study Tools</h2>
+        <span class="badge badge-primary">8 powerful tools</span>
+      </div>
+      <div class="grid grid-2" id="toolsList"></div>
+    </div>
+
+    <div id="toolView-pdf" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>PDF AI Analyzer</h2>
+      </div>
+      <div class="pdf-drop" id="pdfDrop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        <h3>Drop PDF or click to upload</h3>
+        <p style="font-size:.85rem;margin-top:6px">Max 10MB • Notes, books, papers</p>
+        <input type="file" id="pdfFile" accept="application/pdf" style="display:none"/>
+      </div>
+      <div id="pdfResult"></div>
+    </div>
+
+    <div id="toolView-notes" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Smart Notes Generator</h2>
+      </div>
+      <div class="glass">
+        <div class="form-group">
+          <label class="label">Topic</label>
+          <input class="input" id="notesTopic" placeholder="e.g. Newton's Laws of Motion"/>
+        </div>
+        <div class="form-group">
+          <label class="label">Grade / Level</label>
+          <select class="select" id="notesLevel">
+            <option>Class 8-9</option><option>Class 10 (SEE)</option><option>Class 11-12</option><option>University</option>
+          </select>
+        </div>
+        <button class="btn btn-primary w-full" id="generateNotesBtn">✨ Generate Notes</button>
+      </div>
+      <div id="notesResult"></div>
+    </div>
+
+    <div id="toolView-quiz" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>AI Quiz Generator</h2>
+      </div>
+      <div id="quizContent"></div>
+    </div>
+
+    <div id="toolView-homework" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Homework Helper</h2>
+      </div>
+      <div class="glass">
+        <div class="form-group">
+          <label class="label">Subject</label>
+          <select class="select" id="hwSubject">
+            <option>Mathematics</option><option>Science</option><option>Physics</option><option>Chemistry</option><option>Biology</option><option>English</option><option>Nepali</option><option>Social Studies</option><option>General</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="label">Your Question</label>
+          <textarea class="textarea" id="hwQuestion" placeholder="Type your homework question here..."></textarea>
+        </div>
+        <button class="btn btn-primary w-full" id="solveHomeworkBtn">🧠 Get Step-by-Step Solution</button>
+      </div>
+      <div id="hwResult"></div>
+    </div>
+
+    <div id="toolView-calculator" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Calculator</h2>
+      </div>
+      <div class="calc-display">
+        <div class="calc-expr" id="calcExpr">&nbsp;</div>
+        <div class="calc-result" id="calcResult">0</div>
+      </div>
+      <div class="calc-grid" id="calcGrid">
+        <button class="calc-btn clear" data-calc="AC">AC</button>
+        <button class="calc-btn fn" data-calc="(">(</button>
+        <button class="calc-btn fn" data-calc=")">)</button>
+        <button class="calc-btn op" data-calc="/">÷</button>
+        <button class="calc-btn" data-calc="7">7</button>
+        <button class="calc-btn" data-calc="8">8</button>
+        <button class="calc-btn" data-calc="9">9</button>
+        <button class="calc-btn op" data-calc="*">×</button>
+        <button class="calc-btn" data-calc="4">4</button>
+        <button class="calc-btn" data-calc="5">5</button>
+        <button class="calc-btn" data-calc="6">6</button>
+        <button class="calc-btn op" data-calc="-">−</button>
+        <button class="calc-btn" data-calc="1">1</button>
+        <button class="calc-btn" data-calc="2">2</button>
+        <button class="calc-btn" data-calc="3">3</button>
+        <button class="calc-btn op" data-calc="+">+</button>
+        <button class="calc-btn fn" data-calc="%">%</button>
+        <button class="calc-btn" data-calc="0">0</button>
+        <button class="calc-btn" data-calc=".">.</button>
+        <button class="calc-btn eq" data-calc="=">=</button>
+      </div>
+    </div>
+
+    <div id="toolView-timetable" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Timetable Planner</h2>
+      </div>
+      <div id="timetableContent"></div>
+    </div>
+
+    <div id="toolView-reminder" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Study Reminders</h2>
+      </div>
+      <div class="glass">
+        <div class="form-group">
+          <label class="label">Reminder Title</label>
+          <input class="input" id="remTitle" placeholder="e.g. Math revision"/>
+        </div>
+        <div class="form-group">
+          <label class="label">Date & Time</label>
+          <input class="input" id="remTime" type="datetime-local"/>
+        </div>
+        <button class="btn btn-primary w-full" id="addReminderBtn">⏰ Add Reminder</button>
+      </div>
+      <div id="remindersList"></div>
+    </div>
+
+    <div id="toolView-goals" class="tool-view">
+      <div class="tool-view-header">
+        <button class="back-btn" data-close-tool><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <h2>Goal Tracker</h2>
+      </div>
+      <div class="glass">
+        <div class="form-group">
+          <label class="label">Goal Title</label>
+          <input class="input" id="goalTitle" placeholder="e.g. Finish Science chapter 5"/>
+        </div>
+        <div class="form-group">
+          <label class="label">Target (number)</label>
+          <input class="input" id="goalTarget" type="number" min="1" value="10"/>
+        </div>
+        <button class="btn btn-primary w-full" id="addGoalBtn">🎯 Add Goal</button>
+      </div>
+      <div id="goalsList"></div>
+    </div>
+  </div>
+</main>
+
+<main id="page-profile" class="page">
+  <div class="container"><div id="profileContent"></div></div>
+</main>
+
+<main id="page-about" class="page">
+  <div class="container">
+    <div class="about-hero">
+      <h1>Study AI Nepal</h1>
+      <p>A smart AI learning platform designed to help students learn faster and easier.</p>
+    </div>
+    <div class="creator-card">
+      <div class="creator-avatar">BT</div>
+      <h3>Created by Bishal Tech</h3>
+      <div class="role">Founder & Developer</div>
+      <p style="font-size:.9rem">Building the future of education in Nepal — one student at a time.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+        <h3>Our Mission</h3>
+        <p style="font-size:.9rem">Empower every Nepali student with AI-powered tools to make quality education accessible, personalized, and effective.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Our Vision</h3>
+        <p style="font-size:.9rem">A Nepal where every student — from Kathmandu to Karnali — has a personal AI tutor in their pocket.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <h3>For Students</h3>
+        <p style="font-size:.9rem">Built with love for SEE, NEB, and university students across Nepal. Bilingual support in Nepali and English.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon g4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Future Ready</h3>
+        <p style="font-size:.9rem">Mobile apps coming soon. Offline support, voice learning, and more exciting features on the roadmap.</p>
+      </div>
+    </div>
+    <div class="text-center mt-6" style="padding:30px 0;color:var(--text-muted);font-size:.85rem">
+      <p>© 2026 Study AI Nepal • Created by Bishal Tech</p>
+      <p style="margin-top:4px">Made with ❤️ in Nepal 🇳🇵</p>
+    </div>
+  </div>
+</main>
+
+<nav class="bnav">
+  <div class="bnav-inner" id="bnavInner">
+    <button class="bnav-btn active" data-nav="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <button class="bnav-btn" data-nav="chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Chat
+    </button>
+    <button class="bnav-btn" data-nav="tools">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Tools
+    </button>
+    <button class="bnav-btn" data-nav="profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </button>
+    <button class="bnav-btn" data-nav="about">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      About
+    </button>
+  </div>
+</nav>
+
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" id="closeAuthBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2 id="authTitle">Welcome Back</h2>
+    <p class="sub" id="authSub">Sign in to continue learning</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin">Sign In</button>
+      <button class="auth-tab" id="tabSignup">Sign Up</button>
+    </div>
+    <form id="authForm">
+      <div class="form-group hidden" id="nameGroup">
+        <label class="label">Full Name</label>
+        <input class="input" id="authName" type="text" placeholder="Your name"/>
+      </div>
+      <div class="form-group">
+        <label class="label">Email</label>
+        <input class="input" id="authEmail" type="email" placeholder="you@example.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="label">Password</label>
+        <input class="input" id="authPass" type="password" placeholder="••••••••" required minlength="6"/>
+      </div>
+      <button type="submit" class="btn btn-primary w-full btn-lg" id="authSubmit">Sign In</button>
+    </form>
+    <p class="text-center mt-4" style="font-size:.8rem;color:var(--text-muted)">Demo mode • Data stored for this session only</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   STUDY AI NEPAL — APP LOGIC (All buttons wired properly)
+   NOTE: localStorage is not available inside Claude.ai artifacts,
+   so all persistence below uses an in-memory Store object instead.
+   Data will reset if the artifact is reloaded.
+   ============================================================ */
+
+const Store = {
+  user: null,
+  theme: 'dark',
+  chat: [],
+  notes: [],
+  goals: [],
+  reminders: [],
+  timetable: {},
+  quizStats: {total:0, correct:0},
+  users: {},
+  currentPage: 'home',
+  currentTool: null,
+  calcExpr: '',
+  quiz: null,
+  authMode: 'login'
+};
+
+// ---------- ICONS ----------
+const ICONS = {
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  pdf:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+  notes:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>',
+  quiz:'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+  hw:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  tools:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',
+  calc:'<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8.01" y2="10"/><line x1="12" y1="10" x2="12.01" y2="10"/><line x1="16" y1="10" x2="16.01" y2="10"/><line x1="8" y1="14" x2="8.01" y2="14"/><line x1="12" y1="14" x2="12.01" y2="14"/><line x1="16" y1="14" x2="16.01" y2="14"/><line x1="8" y1="18" x2="8.01" y2="18"/><line x1="12" y1="18" x2="16" y2="18"/>',
+  tt:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+  rem:'<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+  goal:'<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>'
+};
+function icon(name){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||ICONS.tools}</svg>`;}
+
+// ---------- DATA ----------
+const FEATURES = [
+  {id:'chat',icon:'chat',grad:'',title:'AI Study Assistant',desc:'Chat with AI in Nepali & English. Get instant answers.',tag:'Popular'},
+  {id:'pdf',icon:'pdf',grad:'g2',title:'PDF Analyzer',desc:'Upload PDFs. Get summaries, key points, and Q&A.',tag:'Smart'},
+  {id:'notes',icon:'notes',grad:'g3',title:'Notes Generator',desc:'Generate clean study notes for any topic.',tag:'Fast'},
+  {id:'quiz',icon:'quiz',grad:'g4',title:'Quiz Generator',desc:'Practice MCQs with difficulty levels.',tag:'Fun'},
+  {id:'homework',icon:'hw',grad:'g2',title:'Homework Helper',desc:'Step-by-step solutions for math, science, and more.',tag:'Helpful'},
+  {id:'tools',icon:'tools',grad:'g3',title:'Study Tools',desc:'Calculator, timetable, reminders, and goal tracker.',tag:'Essential'},
+];
+const TOOLS = [
+  {id:'pdf',icon:'pdf',grad:'',title:'PDF AI Analyzer',desc:'Upload & analyze PDFs',tag:'AI'},
+  {id:'notes',icon:'notes',grad:'g2',title:'Smart Notes',desc:'Generate study notes',tag:'AI'},
+  {id:'quiz',icon:'quiz',grad:'g3',title:'AI Quiz',desc:'Practice MCQs',tag:'AI'},
+  {id:'homework',icon:'hw',grad:'g4',title:'Homework Helper',desc:'Step-by-step solutions',tag:'AI'},
+  {id:'calculator',icon:'calc',grad:'g2',title:'Calculator',desc:'Quick calculations',tag:'Tool'},
+  {id:'timetable',icon:'tt',grad:'g3',title:'Timetable',desc:'Plan your week',tag:'Tool'},
+  {id:'reminder',icon:'rem',grad:'g4',title:'Reminders',desc:'Never miss study time',tag:'Tool'},
+  {id:'goals',icon:'goal',grad:'',title:'Goal Tracker',desc:'Track your progress',tag:'Tool'},
+];
+
+// ---------- INIT ----------
+document.addEventListener('DOMContentLoaded', () => {
+  applyTheme();
+  renderFeatures();
+  renderTools();
+  renderChat();
+  renderProfile();
+  renderQuizSetup();
+  renderTimetable();
+  renderReminders();
+  renderGoals();
+  updateAuthUI();
+  setupDragDrop();
+  setupChatInput();
+  wireAllButtons();
+  checkReminders();
+  setInterval(checkReminders, 60000);
+});
+
+// ---------- WIRE ALL BUTTONS ----------
+function wireAllButtons(){
+  // Brand → home
+  document.getElementById('brandBtn').addEventListener('click', () => navigate('home'));
+  
+  // Nav links (desktop + mobile)
+  document.querySelectorAll('[data-nav]').forEach(btn => {
+    btn.addEventListener('click', () => navigate(btn.dataset.nav));
+  });
+  
+  // Theme toggle
+  document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+  
+  // Auth button
+  document.getElementById('authBtn').addEventListener('click', () => {
+    if(Store.user) navigate('profile'); else openAuth();
+  });
+  
+  // Home CTAs
+  document.getElementById('startLearnBtn').addEventListener('click', () => navigate('chat'));
+  document.getElementById('exploreToolsBtn').addEventListener('click', () => navigate('tools'));
+  document.getElementById('getStartedBtn').addEventListener('click', openAuth);
+  
+  // Chat
+  document.getElementById('sendBtn').addEventListener('click', sendMessage);
+  document.getElementById('clearChatBtn').addEventListener('click', clearChat);
+  document.querySelectorAll('.suggestion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('chatInput').value = btn.dataset.q;
+      sendMessage();
+    });
+  });
+  
+  // Back buttons (close tool view)
+  document.querySelectorAll('[data-close-tool]').forEach(btn => {
+    btn.addEventListener('click', closeToolView);
+  });
+  
+  // PDF
+  const pdfDrop = document.getElementById('pdfDrop');
+  const pdfFile = document.getElementById('pdfFile');
+  pdfDrop.addEventListener('click', () => pdfFile.click());
+  pdfFile.addEventListener('change', (e) => {
+    if(e.target.files[0]) processPDF(e.target.files[0]);
+  });
+  
+  // Notes
+  document.getElementById('generateNotesBtn').addEventListener('click', generateNotes);
+  
+  // Homework
+  document.getElementById('solveHomeworkBtn').addEventListener('click', solveHomework);
+  
+  // Calculator
+  document.querySelectorAll('[data-calc]').forEach(btn => {
+    btn.addEventListener('click', () => handleCalc(btn.dataset.calc));
+  });
+  
+  // Reminder
+  document.getElementById('addReminderBtn').addEventListener('click', addReminder);
+  
+  // Goal
+  document.getElementById('addGoalBtn').addEventListener('click', addGoal);
+  
+  // Auth modal
+  document.getElementById('closeAuthBtn').addEventListener('click', closeAuth);
+  document.getElementById('authModal').addEventListener('click', (e) => {
+    if(e.target.id === 'authModal') closeAuth();
+  });
+  document.getElementById('tabLogin').addEventListener('click', () => switchAuth('login'));
+  document.getElementById('tabSignup').addEventListener('click', () => switchAuth('signup'));
+  document.getElementById('authForm').addEventListener('submit', handleAuth);
+}
+
+// ---------- THEME ----------
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', Store.theme);
+  const icon = document.getElementById('themeIcon');
+  if(Store.theme === 'light'){
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  } else {
+    icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+  }
+}
+function toggleTheme(){
+  Store.theme = Store.theme === 'dark' ? 'light' : 'dark';
+  applyTheme();
+  toast('Theme: ' + Store.theme);
+}
+
+// ---------- NAVIGATION ----------
+function navigate(page){
+  Store.currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('[data-nav]').forEach(b => {
+    b.classList.toggle('active', b.dataset.nav === page);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(page === 'profile') renderProfile();
+  if(page === 'tools'){
+    // Reset to grid view when navigating to tools
+    document.getElementById('toolsGrid').style.display = 'block';
+    document.querySelectorAll('.tool-view').forEach(v => v.classList.remove('active'));
+    Store.currentTool = null;
+  }
+}
+
+// ---------- RENDER FEATURES & TOOLS ----------
+function renderFeatures(){
+  const grid = document.getElementById('featureGrid');
+  grid.innerHTML = FEATURES.map(f => `
+    <div class="feature-card" data-feature="${f.id}">
+      <div class="card-icon ${f.grad}">${icon(f.icon)}</div>
+      <span class="badge badge-primary" style="margin-bottom:10px">${f.tag}</span>
+      <h3>${f.title}</h3>
+      <p>${f.desc}</p>
+    </div>
+  `).join('');
+  grid.querySelectorAll('[data-feature]').forEach(card => {
+    card.addEventListener('click', () => {
+      const id = card.dataset.feature;
+      if(id === 'tools') navigate('tools');
+      else openTool(id);
+    });
+  });
+}
+
+function renderTools(){
+  const list = document.getElementById('toolsList');
+  list.innerHTML = TOOLS.map(t => `
+    <div class="tool-card" data-tool="${t.id}">
+      <div class="tool-icon ${t.grad}">${icon(t.icon)}</div>
+      <span class="tool-tag">${t.tag}</span>
+      <h3 style="margin-top:8px">${t.title}</h3>
+      <p>${t.desc}</p>
+    </div>
+  `).join('');
+  list.querySelectorAll('[data-tool]').forEach(card => {
+    card.addEventListener('click', () => openTool(card.dataset.tool));
+  });
+}
+
+// ---------- AUTH ----------
+function openAuth(){ document.getElementById('authModal').classList.add('active'); }
+function closeAuth(){ document.getElementById('authModal').classList.remove('active'); }
+function switchAuth(mode){
+  Store.authMode = mode;
+  const isLogin = mode === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabSignup').classList.toggle('active', !isLogin);
+  document.getElementById('nameGroup').classList.toggle('hidden', isLogin);
+  document.getElementById('authTitle').textContent = isLogin ? 'Welcome Back' : 'Create Account';
+  document.getElementById('authSub').textContent = isLogin ? 'Sign in to continue learning' : 'Start your AI learning journey';
+  document.getElementById('authSubmit').textContent = isLogin ? 'Sign In' : 'Sign Up';
+}
+function handleAuth(e){
+  e.preventDefault();
+  const mode = Store.authMode;
+  const email = document.getElementById('authEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('authPass').value;
+  const name = document.getElementById('authName').value.trim();
+  if(mode === 'signup'){
+    if(!name){ toast('Please enter your name','error'); return; }
+    if(Store.users[email]){ toast('Account already exists','error'); return; }
+    Store.users[email] = {name, email, pass, created: Date.now()};
+    Store.user = {name, email};
+  } else {
+    const u = Store.users[email];
+    if(!u){
+      // Auto-create for demo
+      Store.users[email] = {name: email.split('@')[0], email, pass, created: Date.now()};
+      Store.user = {name: email.split('@')[0], email};
+    } else if(u.pass !== pass){
+      toast('Invalid password','error'); return;
+    } else {
+      Store.user = {name: u.name, email};
+    }
+  }
+  closeAuth();
+  updateAuthUI();
+  toast('Welcome, ' + Store.user.name + '!', 'success');
+  renderProfile();
+}
+function logout(){
+  Store.user = null;
+  updateAuthUI();
+  renderProfile();
+  toast('Signed out','success');
+  navigate('home');
+}
+function updateAuthUI(){
+  const btn = document.getElementById('authBtn');
+  if(Store.user){
+    btn.textContent = Store.user.name.split(' ')[0];
+  } else {
+    btn.textContent = 'Sign In';
+  }
+}
+
+// ---------- TOAST ----------
+function toast(msg, type='success'){
+  const t = document.getElementById('toast');
+  t.className = 'toast show ' + type;
+  t.innerHTML = (type==='success'?'✓ ':'⚠ ') + msg;
+  clearTimeout(t._tm);
+  t._tm = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ---------- AI ENGINE ----------
+const AI = {
+  isNepali(text){ return /[\u0900-\u097F]/.test(text); },
+  detectTopic(text){
+    const t = text.toLowerCase();
+    if(/photosynthesis|प्रकाश संश्लेषण/.test(t)) return 'photosynthesis';
+    if(/newton|न्यूटन/.test(t)) return 'newton';
+    if(/nepal|नेपाल/.test(t)) return 'nepal';
+    if(/essay|निबंध|climate|जलवायु/.test(t)) return 'essay';
+    if(/history|इतिहास/.test(t)) return 'history';
+    if(/math|solve|गणित/.test(t)) return 'math';
+    if(/science|विज्ञान/.test(t)) return 'science';
+    if(/physics|भौतिक/.test(t)) return 'physics';
+    if(/chemistry|रसायन/.test(t)) return 'chemistry';
+    if(/biology|जीव/.test(t)) return 'biology';
+    if(/hello|hi|namaste|नमस्ते|नमस्कार/.test(t)) return 'greeting';
+    return 'general';
+  },
+  async answer(q){
+    await new Promise(r => setTimeout(r, 700 + Math.random()*600));
+    const nep = this.isNepali(q);
+    const topic = this.detectTopic(q);
+    return this.generate(topic, nep);
+  },
+  generate(topic, nep){
+    const data = {
+      greeting: {
+        en: `**Namaste! 🙏** I'm your Study AI assistant.\n\nI can help you with:\n• 📚 Explaining concepts\n• 🧮 Solving math problems\n• 📝 Writing essays & notes\n• 📄 Analyzing PDFs\n• 🎯 Quiz preparation\n\nAsk me anything in **Nepali or English**!`,
+        ne: `**नमस्ते! 🙏** म तपाईंको Study AI सहायक हुँ।\n\nम तपाईंलाई मद्दत गर्न सक्छु:\n• 📚 अवधारणाहरू बुझाउन\n• 🧮 गणित समाधान गर्न\n• 📝 निबन्ध र नोट्स लेख्न\n\n**नेपाली वा अंग्रेजी**मा सोध्नुहोस्!`
+      },
+      photosynthesis: {
+        en: `**🌱 Photosynthesis**\n\nPhotosynthesis is the process by which green plants make their own food using sunlight.\n\n**The Equation:**\n\`6CO₂ + 6H₂O + Light → C₆H₁₂O₆ + 6O₂\`\n\n**Key Steps:**\n• **Light Absorption** — Chlorophyll captures sunlight\n• **Water Splitting** — H₂O splits into H⁺ and O₂\n• **Carbon Fixation** — CO₂ combines with H⁺\n• **Glucose Formation** — Sugar is produced\n• **Oxygen Release** — O₂ is released\n\n**Where:** Chloroplasts in leaf cells\n**Why important:** Produces oxygen and food for life on Earth 🌍`,
+        ne: `**🌱 प्रकाश संश्लेषण**\n\nप्रकाश संश्लेषण एउटा प्रक्रिया हो जसमा हरियो बिरुवाहरूले सूर्यको प्रकाश प्रयोग गरेर आफ्नो खाना बनाउँछन्।\n\n**समीकरण:**\n\`6CO₂ + 6H₂O + प्रकाश → C₆H₁₂O₆ + 6O₂\`\n\n**मुख्य चरणहरू:**\n• **प्रकाश अवशोषण** — क्लोरोफिलले सूर्यको प्रकाश लिन्छ\n• **पानी विभाजन** — H₂O टुक्रिएर H⁺ र O₂ बन्छ\n• **ग्लुकोज निर्माण** — चिनी बन्छ\n• **अक्सिजन उत्सर्जन** — O₂ बाहिर निस्कन्छ\n\n**कहाँ:** पातको क्लोरोप्लास्टमा 🌍`
+      },
+      newton: {
+        en: `**⚡ Newton's Three Laws of Motion**\n\n**1st Law (Inertia):**\nAn object at rest stays at rest unless acted upon by an external force.\n→ *Example: A ball won't move until you kick it.*\n\n**2nd Law (F = ma):**\nForce equals mass times acceleration.\n→ *Example: Pushing a heavy cart needs more force.*\n\n**3rd Law (Action-Reaction):**\nFor every action, there is an equal and opposite reaction.\n→ *Example: When you jump, Earth pushes you up.*\n\n**Why important:** These laws explain almost all motion around us! 🚀`,
+        ne: `**⚡ न्यूटनका तीन गतिका नियमहरू**\n\n**पहिलो नियम (जडत्व):**\nवस्तु स्थिर छ भने स्थिर नै रहन्छ, जबसम्म बाह्य बल लाग्दैन।\n\n**दोस्रो नियम (F = ma):**\nबल = पिण्ड × प्रवेग।\n\n**तेस्रो नियम (क्रिया-प्रतिक्रिया):**\nहरेक क्रियाको बराबर र विपरीत प्रतिक्रिया हुन्छ।\n\n**महत्व:** हिँड्डुल देखि रकेटसम्म — सबै गति यिनै नियमले व्याख्या गर्छ! 🚀`
+      },
+      nepal: {
+        en: `**🇳🇵 Nepal — Quick Facts**\n\n**Geography:**\n• Located in South Asia between India and China\n• Area: 147,181 sq km\n• Capital: Kathmandu\n• Highest point: Mt. Everest (8,848.86m)\n\n**History:**\n• Unified by Prithvi Narayan Shah in 1768\n• Never colonized — proud independent nation\n• Became a republic in 2008\n\n**Culture:**\n• Birthplace of Lord Buddha (Lumbini)\n• 125+ ethnic groups, 123+ languages\n\n**Fun fact:** Nepal's flag is the only non-rectangular national flag in the world! 🏔️`,
+        ne: `**🇳🇵 नेपाल — छोटो परिचय**\n\n**भूगोल:**\n• दक्षिण एसियामा भारत र चीनबीच\n• क्षेत्रफल: १,४७,१८१ वर्ग कि.मी.\n• राजधानी: काठमाडौं\n• अग्लो बिन्दु: सगरमाथा (८,८४८.८६ मि.)\n\n**इतिहास:**\n• सन् १७६८ मा पृथ्वीनारायण शाहले एकीकरण गरे\n• कहिल्यै उपनिवेश नबनेको\n• सन् २००८ मा गणतन्त्र\n\n**रोचक तथ्य:** नेपालको झण्डा विश्वको एकमात्र अ-आयताकार राष्ट्रिय झण्डा हो! 🏔️`
+      },
+      math: {
+        en: `**🧮 Math Help**\n\nI can solve math problems step-by-step! Please share the exact question.\n\n**Try asking:**\n• "Solve 2x + 5 = 15"\n• "What is 15% of 200?"\n• "Area of circle with radius 7cm"\n• "What is the square root of 144?"\n\n💡 For best results, include the numbers and what you need to find!`,
+        ne: `**🧮 गणित मद्दत**\n\nम गणित समस्या चरणबद्ध रूपमा समाधान गर्न सक्छु! कृपया ठ्याक्कै प्रश्न पठाउनुहोस्।\n\n💡 राम्रो नतिजाको लागि, अंकहरू र तपाईंले के पत्ता लगाउनुपर्ने छ समावेश गर्नुहोस्!`
+      },
+      essay: {
+        en: `**📝 Essay Structure Guide**\n\n**1. Introduction (1 paragraph)**\n• Hook the reader\n• Introduce the topic\n• State your thesis\n\n**2. Body Paragraphs (3-5)**\n• Topic sentence\n• Evidence/examples\n• Explanation\n\n**3. Conclusion**\n• Restate main argument\n• Summarize key points\n• Powerful closing thought\n\n💡 Tell me your specific topic and I'll help outline it!`,
+        ne: `**📝 निबन्ध संरचना गाइड**\n\n**१. परिचय** — विषय परिचय गराउनुहोस्\n**२. मुख्य भाग** — प्रमाण र उदाहरणहरू\n**३. उपसंहार** — शक्तिशाली अन्त्य\n\n💡 तपाईंको निश्चित विषय बताउनुहोस्!`
+      },
+      history: {
+        en: `**📜 History Overview**\n\n**Nepal's History Highlights:**\n• Ancient Kirat, Licchavi, Malla periods\n• Unification by Prithvi Narayan Shah (1768)\n• Rana regime (1846-1951)\n• Democracy movements (1951, 1990, 2006)\n• Republic established (2008)\n\n💡 Ask about any specific period or event!`,
+        ne: `**📜 नेपालको इतिहास**\n\n• प्राचीन किरात, लिच्छवि, मल्ला काल\n• पृथ्वीनारायण शाहद्वारा एकीकरण (१७६८)\n• राणा शासन (१८४६-१९५१)\n• प्रजातन्त्र आन्दोलन\n• गणतन्त्र स्थापना (२००८)\n\n💡 कुनै निश्चित काल सोध्नुहोस्!`
+      },
+      science: { en: `**🔬 Science Help**\n\nMain branches:\n• **Physics** — Matter, energy, forces\n• **Chemistry** — Substances, reactions\n• **Biology** — Living organisms\n\n💡 Ask about any specific science topic!`, ne: `**🔬 विज्ञान मद्दत**\n\n• **भौतिकशास्त्र** — पदार्थ, ऊर्जा\n• **रसायनशास्त्र** — पदार्थ, प्रतिक्रिया\n• **जीवविज्ञान** — जीवित प्राणी\n\n💡 कुनै निश्चित विषय सोध्नुहोस्!` },
+      physics: { en: `**⚛️ Physics**\n\nKey formulas:\n• F = ma (Newton's 2nd Law)\n• E = mc² (Einstein)\n• KE = ½mv² (Kinetic Energy)\n• v = u + at\n\n💡 Ask about any physics concept!`, ne: `**⚛️ भौतिकशास्त्र**\n\nमुख्य सूत्र: F = ma, E = mc²\n💡 कुनै अवधारणा सोध्नुहोस्!` },
+      chemistry: { en: `**🧪 Chemistry**\n\nKey topics:\n• Atomic structure\n• Chemical bonding\n• Acids, bases, pH\n• Organic chemistry\n\n💡 Ask about any chemistry topic!`, ne: `**🧪 रसायनशास्त्र**\n• परमाणु संरचना\n• रासायनिक बन्धन\n💡 कुनै विषय सोध्नुहोस्!` },
+      biology: { en: `**🧬 Biology**\n\nMain areas:\n• Cell biology\n• Genetics — DNA\n• Ecology\n• Human body systems\n\n💡 Ask about any biology topic!`, ne: `**🧬 जीवविज्ञान**\n• कोषिका, आनुवंशिकी, पारिस्थितिकी\n💡 कुनै विषय सोध्नुहोस्!` },
+      general: {
+        en: `**💡 Here's what I found:**\n\n**Key Points:**\n• Let me break this down clearly\n• Understanding basics is important first\n• Then we build on that knowledge\n\n**Try asking more specifically:**\n• "Explain [topic] in simple words"\n• "Solve this: ..."\n• "Give me notes on [subject]"\n• "नेपालको [विषय] बारे बताउनुहोस्"\n\nI'm here to help! 🎓`,
+        ne: `**💡 यहाँ मेरो जवाफ छ:**\n\n**सुझाव:**\n• "[विषय] सरल शब्दमा बुझाउनुहोस्"\n• "यो गणित समाधान गर्नुहोस्: ..."\n• "[विषय] को नोट्स दिनुहोस्"\n\nम तपाईंलाई मद्दत गर्न यहाँ छु! 🎓`
+      }
+    };
+    const d = data[topic] || data.general;
+    return nep ? d.ne : d.en;
+  }
+};
+
+// ---------- CHAT ----------
+function setupChatInput(){
+  const input = document.getElementById('chatInput');
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+  input.addEventListener('keydown', e => {
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+}
+function renderChat(){
+  const box = document.getElementById('chatMessages');
+  if(Store.chat.length === 0){
+    box.innerHTML = `
+      <div class="msg ai">
+        <div class="msg-avatar">${icon('chat')}</div>
+        <div><div class="msg-bubble"><p><strong>Namaste! 🙏</strong><br/>I'm your Study AI assistant. Ask me anything in Nepali or English!</p></div></div>
+      </div>`;
+    return;
+  }
+  box.innerHTML = Store.chat.map(m => `
+    <div class="msg ${m.role}">
+      <div class="msg-avatar">${m.role==='ai'?icon('chat'):(Store.user?.name?.[0]||'U').toUpperCase()}</div>
+      <div>
+        <div class="msg-bubble">${formatMsg(m.text)}</div>
+        <div class="msg-time">${new Date(m.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div>
+      </div>
+    </div>
+  `).join('');
+  box.scrollTop = box.scrollHeight;
+}
+function formatMsg(text){
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/^• (.+)$/gm,'<li>$1</li>')
+    .replace(/\n/g,'<br/>');
+}
+async function sendMessage(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  Store.chat.push({role:'user', text, time: Date.now()});
+  input.value = '';
+  input.style.height = 'auto';
+  renderChat();
+  
+  const box = document.getElementById('chatMessages');
+  const typing = document.createElement('div');
+  typing.className = 'msg ai';
+  typing.id = 'typingIndicator';
+  typing.innerHTML = `<div class="msg-avatar">${icon('chat')}</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  box.appendChild(typing);
+  box.scrollTop = box.scrollHeight;
+  
+  try {
+    const answer = await AI.answer(text);
+    document.getElementById('typingIndicator')?.remove();
+    Store.chat.push({role:'ai', text: answer, time: Date.now()});
+    renderChat();
+  } catch(e){
+    document.getElementById('typingIndicator')?.remove();
+    toast('Something went wrong','error');
+  }
+}
+function clearChat(){
+  if(!confirm('Clear all chat history?')) return;
+  Store.chat = [];
+  renderChat();
+  toast('Chat cleared','success');
+}
+
+// ---------- TOOLS NAVIGATION ----------
+function openTool(id){
+  navigate('tools');
+  Store.currentTool = id;
+  document.getElementById('toolsGrid').style.display = 'none';
+  document.querySelectorAll('.tool-view').forEach(v => v.classList.remove('active'));
+  const view = document.getElementById('toolView-' + id);
+  if(view) view.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function closeToolView(){
+  Store.currentTool = null;
+  document.getElementById('toolsGrid').style.display = 'block';
+  document.querySelectorAll('.tool-view').forEach(v => v.classList.remove('active'));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ---------- PDF ----------
+function setupDragDrop(){
+  const drop = document.getElementById('pdfDrop');
+  ['dragenter','dragover'].forEach(e => drop.addEventListener(e, ev => {ev.preventDefault();drop.classList.add('drag')}));
+  ['dragleave','drop'].forEach(e => drop.addEventListener(e, ev => {ev.preventDefault();drop.classList.remove('drag')}));
+  drop.addEventListener('drop', ev => {
+    const file = ev.dataTransfer.files[0];
+    if(file && file.type === 'application/pdf') processPDF(file);
+  });
+}
+async function processPDF(file){
+  const result = document.getElementById('pdfResult');
+  result.innerHTML = `<div class="pdf-result"><div class="typing" style="justify-content:center"><span></span><span></span><span></span></div><p class="text-center mt-3">Analyzing PDF...</p></div>`;
+  try {
+    const buf = await file.arrayBuffer();
+    if(!window.pdfjsLib) throw new Error('PDF library not loaded');
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf = await pdfjsLib.getDocument({data: buf}).promise;
+    let text = '';
+    const pages = Math.min(pdf.numPages, 10);
+    for(let i=1; i<=pages; i++){
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      text += content.items.map(it => it.str).join(' ') + '\n';
+    }
+    if(!text.trim()) throw new Error('No text found in PDF');
+    const analysis = analyzePDF(text, file.name, pdf.numPages);
+    result.innerHTML = renderPDFAnalysis(analysis);
+    wirePDFResultButtons(analysis);
+    toast('PDF analyzed!','success');
+  } catch(e){
+    result.innerHTML = `<div class="pdf-result"><p style="color:var(--danger)">⚠ ${e.message || 'Failed to analyze PDF'}</p></div>`;
+  }
+}
+function analyzePDF(text, filename, totalPages){
+  const words = text.split(/\s+/).filter(Boolean);
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
+  const wordFreq = {};
+  const stop = new Set(['the','a','an','is','are','was','were','be','been','have','has','had','do','does','did','will','would','could','should','to','of','in','for','on','with','at','by','from','as','and','but','or','if','that','this','it','its','i','me','my','we','our','you','your','he','him','his','she','her','they','them','their']);
+  words.forEach(w => {
+    const clean = w.toLowerCase().replace(/[^a-z0-9]/g,'');
+    if(clean.length > 3 && !stop.has(clean)) wordFreq[clean] = (wordFreq[clean]||0)+1;
+  });
+  const topWords = Object.entries(wordFreq).sort((a,b)=>b[1]-a[1]).slice(0,10).map(x=>x[0]);
+  const keyPoints = sentences.slice(0, 5).map(s => s.trim()).filter(Boolean);
+  const questions = keyPoints.slice(0,3).map((s,i) => ({
+    q: `Q${i+1}: Explain "${s.split(' ').slice(0,5).join(' ')}..."`,
+    a: s
+  }));
+  return { filename, pages: totalPages, words: words.length, topWords, keyPoints, questions,
+    summary: `This document contains ${words.length} words across ${totalPages} pages. Main topics: ${topWords.slice(0,5).join(', ') || 'study material'}.` };
+}
+function renderPDFAnalysis(a){
+  return `
+    <div class="pdf-result">
+      <h4>📄 ${a.filename}</h4>
+      <div class="flex gap-3 mt-3" style="flex-wrap:wrap">
+        <span class="badge badge-primary">${a.words} words</span>
+        <span class="badge badge-success">${a.pages} pages</span>
+      </div>
+      <h4 style="margin-top:18px">📝 Summary</h4>
+      <p style="font-size:.9rem">${a.summary}</p>
+      <h4 style="margin-top:18px">⭐ Key Points</h4>
+      <ul>${a.keyPoints.map(p=>`<li>${p}</li>`).join('') || '<li>No key points</li>'}</ul>
+      <h4 style="margin-top:18px">🏷️ Top Keywords</h4>
+      <div class="flex gap-2" style="flex-wrap:wrap">${a.topWords.map(w=>`<span class="badge badge-accent">${w}</span>`).join('')}</div>
+      <h4 style="margin-top:18px">❓ Generated Questions</h4>
+      ${a.questions.map(q=>`<div class="hw-step"><div class="hw-step-num">Q</div><div style="font-weight:600;margin-bottom:6px">${q.q}</div><div class="hw-step-num" style="color:var(--success)">A</div><div style="font-size:.9rem">${q.a}</div></div>`).join('')}
+      <div class="mt-4 flex gap-2" style="flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" id="savePdfNotesBtn">💾 Save Notes</button>
+        <button class="btn btn-secondary btn-sm" id="backToToolsBtn">← Back</button>
+      </div>
+    </div>
+  `;
+}
+function wirePDFResultButtons(a){
+  const saveBtn = document.getElementById('savePdfNotesBtn');
+  const backBtn = document.getElementById('backToToolsBtn');
+  if(saveBtn) saveBtn.addEventListener('click', () => {
+    Store.notes.unshift({title:'PDF: '+a.filename, date: Date.now(), content:'PDF analysis'});
+    toast('Notes saved!','success');
+  });
+  if(backBtn) backBtn.addEventListener('click', closeToolView);
+}
+
+// ---------- NOTES ----------
+async function generateNotes(){
+  const topic = document.getElementById('notesTopic').value.trim();
+  const level = document.getElementById('notesLevel').value;
+  if(!topic){ toast('Please enter a topic','error'); return; }
+  const result = document.getElementById('notesResult');
+  result.innerHTML = `<div class="notes-output"><div class="typing" style="justify-content:center"><span></span><span></span><span></span></div><p class="text-center mt-3">Generating notes...</p></div>`;
+  await new Promise(r => setTimeout(r, 1000));
+  const notes = {
+    summary: `${topic} is an important subject in ${level} curriculum. This topic covers fundamental concepts that form the basis for advanced study. Understanding ${topic} helps students develop critical thinking and problem-solving skills.`,
+    points: [
+      `${topic} has both theoretical and practical applications`,
+      `Key principles must be understood before attempting problems`,
+      `Regular practice is essential for mastery`,
+      `Connect concepts to real-life examples`,
+      `Focus on understanding rather than memorization`
+    ],
+    concepts: [
+      {term:'Definition', def:`The formal meaning of ${topic}`},
+      {term:'Principles', def:'Core rules that govern this subject'},
+      {term:'Applications', def:`Real-world uses of ${topic}`},
+      {term:'Examples', def:'Common problems and solutions'}
+    ],
+    exam: [
+      `Define ${topic} (2 marks)`,
+      `Explain main principles with examples (5 marks)`,
+      `Solve application-based question (5 marks)`,
+      `Compare related concepts (4 marks)`,
+      `Long answer with diagram (8 marks)`
+    ]
+  };
+  result.innerHTML = `
+    <div class="notes-output">
+      <div class="flex justify-between items-center mb-3" style="flex-wrap:wrap;gap:10px">
+        <h3 style="margin:0">📚 ${topic}</h3>
+        <span class="badge badge-primary">${level}</span>
+      </div>
+      <h3>📖 Summary</h3>
+      <p>${notes.summary}</p>
+      <h3>⭐ Important Points</h3>
+      <ul>${notes.points.map(p=>`<li>${p}</li>`).join('')}</ul>
+      <h3>📝 Key Concepts</h3>
+      <ul>${notes.concepts.map(c=>`<li><strong>${c.term}:</strong> ${c.def}</li>`).join('')}</ul>
+      <h3>🎯 Exam Preparation</h3>
+      <ul>${notes.exam.map(e=>`<li>${e}</li>`).join('')}</ul>
+      <div class="mt-4 flex gap-2" style="flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" id="saveNotesBtn">💾 Save Notes</button>
+        <button class="btn btn-secondary btn-sm" id="newTopicBtn">🔄 New Topic</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('saveNotesBtn').addEventListener('click', () => {
+    Store.notes.unshift({title: topic, date: Date.now(), level, content: JSON.stringify(notes)});
+    toast('Notes saved!','success');
+  });
+  document.getElementById('newTopicBtn').addEventListener('click', () => {
+    document.getElementById('notesTopic').value = '';
+    document.getElementById('notesResult').innerHTML = '';
+  });
+  toast('Notes generated!','success');
+}
+
+// ---------- QUIZ ----------
+const QUIZ_BANK = {
+  Science: [
+    {q:'What is the chemical formula for water?', opts:['H2O','CO2','O2','NaCl'], a:0},
+    {q:'Which planet is known as the Red Planet?', opts:['Venus','Mars','Jupiter','Saturn'], a:1},
+    {q:'What is the unit of force?', opts:['Joule','Watt','Newton','Pascal'], a:2},
+    {q:'Photosynthesis occurs in which part?', opts:['Root','Stem','Leaf','Flower'], a:2},
+    {q:'What gas do humans exhale?', opts:['Oxygen','Nitrogen','Carbon dioxide','Hydrogen'], a:2},
+    {q:'Speed of light is approximately?', opts:['3×10⁸ m/s','3×10⁶ m/s','3×10⁵ m/s','3×10¹⁰ m/s'], a:0},
+    {q:'Largest organ in human body?', opts:['Heart','Liver','Skin','Brain'], a:2},
+    {q:'pH of pure water is?', opts:['5','6','7','8'], a:2},
+  ],
+  Mathematics: [
+    {q:'What is 15% of 200?', opts:['20','25','30','35'], a:2},
+    {q:'Square root of 144?', opts:['10','11','12','13'], a:2},
+    {q:'Value of π approximately?', opts:['2.14','3.14','4.14','3.41'], a:1},
+    {q:'If x + 5 = 12, then x = ?', opts:['5','6','7','8'], a:2},
+    {q:'Sum of angles in a triangle?', opts:['90°','180°','270°','360°'], a:1},
+    {q:'2³ = ?', opts:['6','8','9','16'], a:1},
+    {q:'LCM of 4 and 6?', opts:['10','12','24','8'], a:1},
+  ],
+  English: [
+    {q:'Synonym of "happy"?', opts:['Sad','Joyful','Angry','Tired'], a:1},
+    {q:'Antonym of "brave"?', opts:['Bold','Cowardly','Strong','Fearless'], a:1},
+    {q:'Past tense of "go"?', opts:['Goed','Gone','Went','Going'], a:2},
+    {q:'Plural of "child"?', opts:['Childs','Children','Childrens','Childes'], a:1},
+    {q:'Which is a pronoun?', opts:['Run','He','Beautiful','Quickly'], a:1},
+  ],
+  'Social Studies': [
+    {q:'Capital of Nepal?', opts:['Pokhara','Biratnagar','Kathmandu','Birgunj'], a:2},
+    {q:'Who unified Nepal?', opts:['Prithvi Narayan Shah','Tribhuvan','Birendra','Gyanendra'], a:0},
+    {q:'Highest mountain in the world?', opts:['K2','Kangchenjunga','Everest','Lhotse'], a:2},
+    {q:'National animal of Nepal?', opts:['Tiger','Cow','Elephant','Rhino'], a:1},
+    {q:'Continent of Nepal?', opts:['Europe','Africa','Asia','Australia'], a:2},
+  ],
+  'General Knowledge': [
+    {q:'Largest ocean?', opts:['Atlantic','Indian','Arctic','Pacific'], a:3},
+    {q:'Who invented the telephone?', opts:['Edison','Bell','Tesla','Newton'], a:1},
+    {q:'How many continents?', opts:['5','6','7','8'], a:2},
+    {q:'Currency of Japan?', opts:['Yuan','Won','Yen','Ringgit'], a:2},
+    {q:'Smallest country?', opts:['Monaco','Vatican City','Nauru','Malta'], a:1},
+  ],
+  'Nepal GK': [
+    {q:'National flower of Nepal?', opts:['Rose','Rhododendron','Lotus','Lily'], a:1},
+    {q:'Provinces in Nepal?', opts:['5','6','7','14'], a:2},
+    {q:'National bird of Nepal?', opts:['Eagle','Danphe','Peacock','Pigeon'], a:1},
+    {q:'When did Nepal become republic?', opts:['2006','2007','2008','2009'], a:2},
+    {q:'Longest river in Nepal?', opts:['Koshi','Gandaki','Karnali','Bagmati'], a:2},
+  ]
+};
+function renderQuizSetup(){
+  const c = document.getElementById('quizContent');
+  const acc = Store.quizStats.total ? Math.round(Store.quizStats.correct/Store.quizStats.total*100) : 0;
+  c.innerHTML = `
+    <div class="quiz-setup">
+      <h3 style="margin-bottom:16px">🎯 Quiz Setup</h3>
+      <div class="form-group">
+        <label class="label">Subject</label>
+        <select class="select" id="quizSubject">
+          <option>Science</option><option>Mathematics</option><option>English</option><option>Social Studies</option><option>General Knowledge</option><option>Nepal GK</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="label">Difficulty</label>
+        <select class="select" id="quizDifficulty">
+          <option value="easy">Easy</option>
+          <option value="medium" selected>Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="label">Number of Questions</label>
+        <select class="select" id="quizCount">
+          <option>5</option><option selected>10</option><option>15</option>
+        </select>
+      </div>
+      <button class="btn btn-primary w-full" id="startQuizBtn">▶ Start Quiz</button>
+      <div class="divider" style="margin:20px 0;height:1px;background:var(--border)"></div>
+      <div class="flex justify-between items-center">
+        <div>
+          <div style="font-size:.8rem;color:var(--text-muted)">Your Stats</div>
+          <div style="font-weight:700">${Store.quizStats.correct}/${Store.quizStats.total} correct</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.8rem;color:var(--text-muted)">Accuracy</div>
+          <div style="font-weight:700;color:var(--success)">${acc}%</div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+}
+function startQuiz(){
+  const subject = document.getElementById('quizSubject').value;
+  const difficulty = document.getElementById('quizDifficulty').value;
+  const count = parseInt(document.getElementById('quizCount').value);
+  const bank = QUIZ_BANK[subject] || QUIZ_BANK['Science'];
+  const shuffled = [...bank].sort(()=>Math.random()-0.5).slice(0, Math.min(count, bank.length));
+  Store.quiz = {subject, difficulty, questions: shuffled, current: 0, answers: [], startTime: Date.now()};
+  renderQuizQuestion();
+}
+function renderQuizQuestion(){
+  const q = Store.quiz;
+  if(q.current >= q.questions.length){ return renderQuizResult(); }
+  const curr = q.questions[q.current];
+  const progress = ((q.current) / q.questions.length) * 100;
+  const c = document.getElementById('quizContent');
+  c.innerHTML = `
+    <div class="quiz-active">
+      <div class="flex justify-between items-center mb-3" style="flex-wrap:wrap;gap:8px">
+        <span class="badge badge-primary">Q ${q.current+1}/${q.questions.length}</span>
+        <span class="badge">${q.subject} • ${q.difficulty}</span>
+      </div>
+      <div class="quiz-progress"><div class="quiz-progress-fill" style="width:${progress}%"></div></div>
+      <div class="quiz-q-text">${curr.q}</div>
+      <div class="quiz-opts" id="quizOpts">
+        ${curr.opts.map((o,i) => `
+          <button class="quiz-opt" data-idx="${i}">
+            <span class="quiz-opt-letter">${String.fromCharCode(65+i)}</span>
+            <span>${o}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  document.querySelectorAll('#quizOpts .quiz-opt').forEach(btn => {
+    btn.addEventListener('click', () => answerQuiz(parseInt(btn.dataset.idx)));
+  });
+}
+function answerQuiz(i){
+  const q = Store.quiz;
+  const curr = q.questions[q.current];
+  q.answers.push({selected:i, correct: i === curr.a});
+  const opts = document.querySelectorAll('#quizOpts .quiz-opt');
+  opts.forEach((o,idx) => {
+    o.style.pointerEvents = 'none';
+    if(idx === curr.a) o.classList.add('correct');
+    else if(idx === i) o.classList.add('wrong');
+  });
+  setTimeout(() => {
+    q.current++;
+    renderQuizQuestion();
+  }, 900);
+}
+function renderQuizResult(){
+  const q = Store.quiz;
+  const correct = q.answers.filter(a=>a.correct).length;
+  const total = q.questions.length;
+  const pct = Math.round(correct/total*100);
+  const time = Math.round((Date.now()-q.startTime)/1000);
+  Store.quizStats.total += total;
+  Store.quizStats.correct += correct;
+  let msg = pct >= 80 ? '🏆 Excellent!' : pct >= 60 ? '👍 Good job!' : pct >= 40 ? '📚 Keep practicing!' : '💪 Don\'t give up!';
+  const c = document.getElementById('quizContent');
+  c.innerHTML = `
+    <div class="quiz-result text-center">
+      <div style="font-size:4rem;margin-bottom:10px">${pct>=80?'🏆':pct>=60?'🎉':'📚'}</div>
+      <h2 style="margin-bottom:6px">${msg}</h2>
+      <p style="font-size:1.1rem;margin-bottom:20px">You scored <strong style="color:var(--primary)">${correct}/${total}</strong> (${pct}%)</p>
+      <div class="grid grid-3 mb-4">
+        <div class="stat-card"><div class="lbl">Correct</div><div class="val">${correct}</div></div>
+        <div class="stat-card"><div class="lbl">Wrong</div><div class="val" style="background:var(--grad-2);-webkit-background-clip:text;background-clip:text">${total-correct}</div></div>
+        <div class="stat-card"><div class="lbl">Time</div><div class="val" style="font-size:1.3rem">${time}s</div></div>
+      </div>
+      <div class="flex gap-2" style="justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" id="newQuizBtn">🔄 New Quiz</button>
+        <button class="btn btn-secondary" id="backFromQuizBtn">← Back</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('newQuizBtn').addEventListener('click', renderQuizSetup);
+  document.getElementById('backFromQuizBtn').addEventListener('click', closeToolView);
+}
+
+// ---------- HOMEWORK ----------
+async function solveHomework(){
+  const subject = document.getElementById('hwSubject').value;
+  const q = document.getElementById('hwQuestion').value.trim();
+  if(!q){ toast('Please enter a question','error'); return; }
+  const result = document.getElementById('hwResult');
+  result.innerHTML = `<div class="hw-output"><div class="typing" style="justify-content:center"><span></span><span></span><span></span></div></div>`;
+  await new Promise(r => setTimeout(r, 900));
+  const solution = buildHomeworkSolution(subject, q);
+  result.innerHTML = `
+    <div class="hw-output">
+      <div class="flex justify-between items-center mb-3" style="flex-wrap:wrap;gap:8px">
+        <h3 style="margin:0">📝 Solution</h3>
+        <span class="badge badge-primary">${subject}</span>
+      </div>
+      <div style="padding:14px;border-radius:12px;background:var(--surface-2);margin-bottom:14px">
+        <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:4px">Question</div>
+        <div style="font-weight:600">${q}</div>
+      </div>
+      ${solution.map((s,i) => `
+        <div class="hw-step">
+          <div class="hw-step-num">Step ${i+1}</div>
+          <div style="font-size:.95rem">${s}</div>
+        </div>
+      `).join('')}
+      <div style="margin-top:14px;padding:14px;border-radius:12px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.3)">
+        <strong style="color:var(--success)">✓ Final Answer:</strong>
+        <div style="margin-top:4px">${solution[solution.length-1]}</div>
+      </div>
+    </div>
+  `;
+  toast('Solution ready!','success');
+}
+function buildHomeworkSolution(subject, q){
+  if(/(\d+)\s*[+]\s*(\d+)/.test(q)){
+    const m = q.match(/(\d+)\s*[+]\s*(\d+)/);
+    const a = parseInt(m[1]), b = parseInt(m[2]);
+    return [`Read the problem: ${a} + ${b}`,`Add the numbers: ${a} + ${b} = ${a+b}`,`The answer is ${a+b}`];
+  }
+  if(/(\d+)\s*[-]\s*(\d+)/.test(q)){
+    const m = q.match(/(\d+)\s*[-]\s*(\d+)/);
+    const a = parseInt(m[1]), b = parseInt(m[2]);
+    return [`Read the problem: ${a} - ${b}`,`Subtract: ${a} - ${b} = ${a-b}`,`The answer is ${a-b}`];
+  }
+  if(/(\d+)\s*[*x×]\s*(\d+)/i.test(q)){
+    const m = q.match(/(\d+)\s*[*x×]\s*(\d+)/i);
+    const a = parseInt(m[1]), b = parseInt(m[2]);
+    return [`Multiply: ${a} × ${b}`,`Calculate: ${a} × ${b} = ${a*b}`,`The answer is ${a*b}`];
+  }
+  if(/(\d+)\s*[/÷]\s*(\d+)/.test(q)){
+    const m = q.match(/(\d+)\s*[/÷]\s*(\d+)/);
+    const a = parseInt(m[1]), b = parseInt(m[2]);
+    return [`Divide: ${a} ÷ ${b}`,`Calculate: ${a} ÷ ${b} = ${(a/b).toFixed(2)}`,`The answer is ${(a/b).toFixed(2)}`];
+  }
+  if(/area.*circle|circle.*area|radius/i.test(q)){
+    const m = q.match(/(\d+)/);
+    const r = m ? parseInt(m[1]) : 7;
+    const area = (22/7 * r * r).toFixed(2);
+    return [`Formula: Area = π × r²`,`Given radius r = ${r} cm`,`Area = (22/7) × ${r}² = ${area} cm²`];
+  }
+  return [
+    `<strong>Understand:</strong> ${q}`,
+    `<strong>Identify:</strong> This is a ${subject.toLowerCase()} question.`,
+    `<strong>Apply:</strong> Use relevant ${subject} principles.`,
+    `<strong>Solve:</strong> Work through step by step.`,
+    `<strong>Answer:</strong> The solution addresses "${q}" using ${subject} concepts.`
+  ];
+}
+
+// ---------- CALCULATOR ----------
+function handleCalc(v){
+  if(v === 'AC'){
+    Store.calcExpr = '';
+    document.getElementById('calcExpr').innerHTML = '&nbsp;';
+    document.getElementById('calcResult').textContent = '0';
+    return;
+  }
+  if(v === '='){
+    try {
+      if(!Store.calcExpr) return;
+      const result = Function('"use strict";return (' + Store.calcExpr + ')')();
+      document.getElementById('calcResult').textContent = Number.isFinite(result) ? (Math.round(result*1e10)/1e10) : 'Error';
+      Store.calcExpr = String(result);
+    } catch(e){
+      document.getElementById('calcResult').textContent = 'Error';
+      Store.calcExpr = '';
+    }
+    return;
+  }
+  Store.calcExpr += v;
+  document.getElementById('calcExpr').textContent = Store.calcExpr.replace(/\*/g,'×').replace(/\//g,'÷');
+}
+
+// ---------- TIMETABLE ----------
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function renderTimetable(){
+  const c = document.getElementById('timetableContent');
+  c.innerHTML = DAYS.map(day => {
+    const slots = Store.timetable[day] || [];
+    return `
+      <div class="tt-day">
+        <div class="tt-day-header">
+          <h4>${day}</h4>
+          <span class="badge">${slots.length} slots</span>
+        </div>
+        <div class="tt-slots">
+          ${slots.length ? slots.map((s,i) => `
+            <div class="tt-slot">
+              <div class="tt-time">${s.time}</div>
+              <div class="tt-subject">${s.subject}</div>
+              <button class="tt-del" data-del-slot data-day="${day}" data-idx="${i}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+            </div>
+          `).join('') : '<p style="font-size:.85rem;color:var(--text-muted);padding:8px">No classes scheduled</p>'}
+        </div>
+        <div class="tt-add">
+          <input class="input" type="time" id="time-${day}" style="max-width:130px"/>
+          <input class="input" type="text" id="subj-${day}" placeholder="Subject" style="flex:1;min-width:120px"/>
+          <button class="btn btn-primary btn-sm" data-add-slot data-day="${day}">+ Add</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  // Wire buttons
+  document.querySelectorAll('[data-add-slot]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const day = btn.dataset.day;
+      const time = document.getElementById('time-'+day).value;
+      const subject = document.getElementById('subj-'+day).value.trim();
+      if(!time || !subject){ toast('Fill both fields','error'); return; }
+      if(!Store.timetable[day]) Store.timetable[day] = [];
+      Store.timetable[day].push({time, subject});
+      Store.timetable[day].sort((a,b) => a.time.localeCompare(b.time));
+      renderTimetable();
+      toast('Added!','success');
+    });
+  });
+  document.querySelectorAll('[data-del-slot]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const day = btn.dataset.day;
+      const idx = parseInt(btn.dataset.idx);
+      Store.timetable[day].splice(idx,1);
+      renderTimetable();
+    });
+  });
+}
+
+// ---------- REMINDERS ----------
+function addReminder(){
+  const title = document.getElementById('remTitle').value.trim();
+  const time = document.getElementById('remTime').value;
+  if(!title || !time){ toast('Fill all fields','error'); return; }
+  Store.reminders.push({id: Date.now(), title, time});
+  document.getElementById('remTitle').value = '';
+  document.getElementById('remTime').value = '';
+  renderReminders();
+  toast('Reminder added!','success');
+  if('Notification' in window && Notification.permission !== 'granted') Notification.requestPermission();
+}
+function deleteReminder(id){
+  Store.reminders = Store.reminders.filter(r => r.id !== id);
+  renderReminders();
+}
+function renderReminders(){
+  const list = document.getElementById('remindersList');
+  if(!list) return;
+  if(Store.reminders.length === 0){
+    list.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><p>No reminders yet</p></div>`;
+    return;
+  }
+  const sorted = [...Store.reminders].sort((a,b) => new Date(a.time) - new Date(b.time));
+  list.innerHTML = sorted.map(r => {
+    const d = new Date(r.time);
+    const isPast = d < new Date();
+    return `
+      <div class="reminder-item">
+        <div class="reminder-info">
+          <div class="reminder-title">${r.title}</div>
+          <div class="reminder-time" style="${isPast?'color:var(--text-muted);text-decoration:line-through':''}">
+            📅 ${d.toLocaleDateString()} • ⏰ ${d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
+          </div>
+        </div>
+        <button class="reminder-del" data-del-rem="${r.id}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+      </div>
+    `;
+  }).join('');
+  document.querySelectorAll('[data-del-rem]').forEach(btn => {
+    btn.addEventListener('click', () => deleteReminder(parseInt(btn.dataset.delRem)));
+  });
+}
+function checkReminders(){
+  const now = Date.now();
+  Store.reminders.forEach(r => {
+    const t = new Date(r.time).getTime();
+    if(!r.notified && t <= now && t > now - 60000){
+      r.notified = true;
+      if('Notification' in window && Notification.permission === 'granted'){
+        new Notification('Study AI Nepal', {body: '⏰ ' + r.title});
+      }
+      toast('⏰ ' + r.title);
+    }
+  });
+}
+
+// ---------- GOALS ----------
+function addGoal(){
+  const title = document.getElementById('goalTitle').value.trim();
+  const target = parseInt(document.getElementById('goalTarget').value);
+  if(!title || !target || target < 1){ toast('Fill all fields','error'); return; }
+  Store.goals.push({id: Date.now(), title, target, current: 0, created: Date.now()});
+  document.getElementById('goalTitle').value = '';
+  renderGoals();
+  toast('Goal added!','success');
+}
+function updateGoal(id, delta){
+  const g = Store.goals.find(x => x.id === id);
+  if(!g) return;
+  g.current = Math.max(0, Math.min(g.target, g.current + delta));
+  renderGoals();
+  if(g.current >= g.target) toast('🎉 Goal completed: ' + g.title,'success');
+}
+function deleteGoal(id){
+  Store.goals = Store.goals.filter(g => g.id !== id);
+  renderGoals();
+}
+function renderGoals(){
+  const list = document.getElementById('goalsList');
+  if(!list) return;
+  if(Store.goals.length === 0){
+    list.innerHTML = `<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><p>No goals yet. Add one above!</p></div>`;
+    return;
+  }
+  list.innerHTML = Store.goals.map(g => {
+    const pct = Math.round(g.current/g.target*100);
+    const done = g.current >= g.target;
+    return `
+      <div class="goal-item">
+        <div class="goal-header">
+          <div style="flex:1">
+            <div class="goal-title">${done?'✅ ':''}${g.title}</div>
+            <div class="goal-meta">${g.current} / ${g.target} completed</div>
+          </div>
+          <div class="goal-actions">
+            <button data-goal-dec="${g.id}" title="Decrease">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <button data-goal-inc="${g.id}" title="Increase">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <button data-goal-del="${g.id}" title="Delete">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="14" height="14"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;${done?'background:var(--grad-3)':''}"></div></div>
+        <div class="goal-progress-text"><span>${pct}%</span><span>${done?'Completed! 🎉':'Keep going!'}</span></div>
+      </div>
+    `;
+  }).join('');
+  document.querySelectorAll('[data-goal-inc]').forEach(b => b.addEventListener('click', () => updateGoal(parseInt(b.dataset.goalInc), 1)));
+  document.querySelectorAll('[data-goal-dec]').forEach(b => b.addEventListener('click', () => updateGoal(parseInt(b.dataset.goalDec), -1)));
+  document.querySelectorAll('[data-goal-del]').forEach(b => b.addEventListener('click', () => deleteGoal(parseInt(b.dataset.goalDel))));
+}
+
+// ---------- PROFILE ----------
+function renderProfile(){
+  const c = document.getElementById('profileContent');
+  if(!Store.user){
+    c.innerHTML = `
+      <div class="glass-strong" style="padding:40px 20px;text-align:center">
+        <div style="width:80px;height:80px;border-radius:50%;background:var(--grad);display:grid;place-items:center;margin:0 auto 20px;color:#fff">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="40" height="40"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h2 style="margin-bottom:8px">Welcome to Study AI Nepal</h2>
+        <p style="margin-bottom:24px">Sign in to save your progress, notes, and chat history.</p>
+        <button class="btn btn-primary btn-lg" id="profileAuthBtn">Sign In / Sign Up</button>
+      </div>
+    `;
+    document.getElementById('profileAuthBtn').addEventListener('click', openAuth);
+    return;
+  }
+  const u = Store.user;
+  const initials = u.name.split(' ').map(n=>n[0]).slice(0,2).join('').toUpperCase();
+  const acc = Store.quizStats.total ? Math.round(Store.quizStats.correct/Store.quizStats.total*100) : 0;
+  c.innerHTML = `
+    <div class="profile-header">
+      <div class="profile-avatar">${initials}</div>
+      <h2>${u.name}</h2>
+      <p>${u.email}</p>
+      <div class="profile-stats">
+        <div class="profile-stat"><div class="n">${Store.chat.length}</div><div class="l">Messages</div></div>
+        <div class="profile-stat"><div class="n">${Store.notes.length}</div><div class="l">Notes</div></div>
+        <div class="profile-stat"><div class="n">${Store.goals.length}</div><div class="l">Goals</div></div>
+      </div>
+    </div>
+    <div class="grid grid-3 mb-4">
+      <div class="stat-card"><div class="lbl">Quiz Accuracy</div><div class="val">${acc}%</div></div>
+      <div class="stat-card"><div class="lbl">Questions Solved</div><div class="val">${Store.quizStats.total}</div></div>
+      <div class="stat-card"><div class="lbl">Active Goals</div><div class="val">${Store.goals.filter(g=>g.current<g.target).length}</div></div>
+    </div>
+    <div class="section-title mt-6"><h2>📚 Saved Notes</h2></div>
+    ${Store.notes.length ? Store.notes.slice(0,5).map(n => `
+      <div class="history-item">
+        <div style="flex:1">
+          <div class="title">${n.title}</div>
+          <div class="meta">${new Date(n.date).toLocaleDateString()}${n.level?' • '+n.level:''}</div>
+        </div>
+        <button class="icon-btn" data-del-note="${n.date}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+      </div>
+    `).join('') : '<div class="empty"><p>No saved notes yet</p></div>'}
+    <div class="section-title mt-6"><h2>💬 Recent Chats</h2></div>
+    ${Store.chat.length ? Store.chat.filter(m=>m.role==='user').slice(-5).reverse().map(m => `
+      <div class="history-item">
+        <div style="flex:1;overflow:hidden">
+          <div class="title" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${m.text}</div>
+          <div class="meta">${new Date(m.time).toLocaleString()}</div>
+        </div>
+      </div>
+    `).join('') : '<div class="empty"><p>No chat history yet</p></div>'}
+    <div class="mt-6">
+      <button class="btn btn-danger w-full" id="logoutBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign Out
+      </button>
+    </div>
+  `;
+  document.querySelectorAll('[data-del-note]').forEach(b => {
+    b.addEventListener('click', () => {
+      const date = parseInt(b.dataset.delNote);
+      Store.notes = Store.notes.filter(n => n.date !== date);
+      renderProfile();
+      toast('Note deleted','success');
+    });
+  });
+  document.getElementById('logoutBtn').addEventListener('click', logout);
+}
+</script>
+</body>
+</html>
